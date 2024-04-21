@@ -6,4 +6,12 @@ cvlib
 SpeechRecognition
 pyaudio
 pyttsx3
-face_recognition
+face-recognition
+portaudio19-dev
+PyYAML 
+yolov5 
+cmake 
+libespeak1
+onnx 
+torchvision
+cv2   
