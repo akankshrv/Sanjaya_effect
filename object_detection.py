@@ -2,14 +2,19 @@ import argparse
 import torch
 import pyttsx3
 import numpy as np
-from ultralytics.yolo.utils import ROOT, yaml_load
-from ultralytics.yolo.utils.checks import check_yaml
 from torchvision import transforms
 from PIL import Image
 import cv2
 import onnx
+import yaml
 
-CLASSES = yaml_load(check_yaml('coco128.yaml'))['names']
+def load_class_names_from_yaml(yaml_file):
+    with open(yaml_file, 'r') as file:
+        data = yaml.safe_load(file)
+    return data['names']
+
+CLASSES = load_class_names_from_yaml('coco128.yaml')
+print(CLASSES)
 colors = np.random.uniform(0, 255, size=(len(CLASSES), 3))
 engine = pyttsx3.init()
 

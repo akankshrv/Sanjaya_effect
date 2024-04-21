@@ -1,0 +1,9 @@
+tensorflow
+ultralytics
+torch
+opencv-python
+cvlib
+SpeechRecognition
+pyaudio
+pyttsx3
+face_recognition

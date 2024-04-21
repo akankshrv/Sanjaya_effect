@@ -1,50 +1,47 @@
 import pyttsx3
-import speech_recognition as sr
-from face_reco import face_reco
+from face_reco import face_recognition
 from navigation import navi
 from object_detection import object_detection
+import logging
+
 def main():
-    engine = pyttsx3.init()
-    recognizer = sr.Recognizer()
-    engine.say("Welcome to, Sanjaya effect.")
+    try:
+        engine = pyttsx3.init()
+    except Exception as e:
+        logging.error("Error initializing text-to-speech engine: %s", e)
+        return
+
+    engine.say("Welcome to Sanjaya Effect.")
     engine.runAndWait()
 
     while True:
-        with sr.Microphone() as source:
-            engine.say("Hello")
-            engine.runAndWait()
-            audio = recognizer.listen(source)
-        
         try:
-            command = recognizer.recognize_google(audio)
-            command=str(command)
-            print(command)
+            command = input("Enter command (1 for Object Detection, 2 for Navigation, 3 for Face Recognition, or 'exit' to quit): ")
             
-            if "object detection" in command:
-                engine.say("Activating ,Object Detection Mode")
+            if command == '1':
+                engine.say("Activating Object Detection Mode")
                 engine.runAndWait()
-                object_detection('yolov8l.onnx')
-            elif "navigation" in command:
-                engine.say("Activating, Navigation Mode")
+                object_detection('yolov8s.onnx')
+            elif command == '2':
+                engine.say("Activating Navigation Mode")
                 engine.runAndWait()
                 navi()
-            elif "face read" in command:
-                engine.say("Activating, Face Reading Mode")
+            elif command == '3':
+                engine.say("Activating Face Reading Mode")
                 engine.runAndWait()
-                face_reco()
-            elif "exit" in command:
+                face_recognition()
+            elif command.lower() == 'exit':
                 break
             else:
-                engine.say("Can you say that again")
+                engine.say("Invalid command. Please try again.")
                 engine.runAndWait()
                 
-        
-        except sr.UnknownValueError:
-            engine.say("Can you say that again")
-            engine.runAndWait()
-        except sr.RequestError as e:
-            engine.say("Could not request results from Speech Recognition service: {0}".format(e))
+        except Exception as e:
+            logging.error("An error occurred: %s", e)
+            engine.say("An error occurred. Please try again.")
             engine.runAndWait()
 
-if __name__=="__main__":
+    engine.stop()
+
+if __name__ == "__main__":
     main()

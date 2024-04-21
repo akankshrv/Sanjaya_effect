@@ -1,3 +1,4 @@
+import time
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 import cvlib as cv
@@ -68,7 +69,7 @@ def encode_faces(dataset_path):
     return encoded_faces, names
     
     
-def face_reco():
+def face_recognition():
     encodings, names = encode_faces(dataset_path)
     cap = cv2.VideoCapture(0)
     spoken_names = set()
@@ -108,4 +109,5 @@ def face_reco():
             break
     cap.release()
    
+
 
