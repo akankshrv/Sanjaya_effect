@@ -1,8 +1,9 @@
 import pyttsx3
 from face_reco import face_recognition
 from navigation import navi
-from object_detection import object_detection
+from object_detection_yolov8 import object_detection
 import logging
+import cv2
 
 def main():
     try:
@@ -17,19 +18,19 @@ def main():
     while True:
         try:
             command = input("Enter command (1 for Object Detection, 2 for Navigation, 3 for Face Recognition, or 'exit' to quit): ")
-            
+            cap = cv2.VideoCapture(0)
             if command == '1':
                 engine.say("Activating Object Detection Mode")
                 engine.runAndWait()
-                object_detection('yolov8s.onnx')
+                object_detection(cap)
             elif command == '2':
                 engine.say("Activating Navigation Mode")
                 engine.runAndWait()
-                navi()
+                navi(cap)
             elif command == '3':
                 engine.say("Activating Face Reading Mode")
                 engine.runAndWait()
-                face_recognition()
+                face_recognition(cap)
             elif command.lower() == 'exit':
                 break
             else:

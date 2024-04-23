@@ -10,9 +10,8 @@ transforms=torch.hub.load('intel-isl/MiDas', 'transforms')
 transform=transforms.small_transform
 distance_threshold=1.0
 
-def navi():
+def navi(cap):
     prev_command = None
-    cap = cv2.VideoCapture(0)
     engine.say("Navigation Mode activated")
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
